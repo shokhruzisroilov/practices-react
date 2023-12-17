@@ -1,4 +1,5 @@
 import { useForm } from './hooks/useForm'
+import { useFormNumber } from './hooks/useFormNumber'
 
 const App = () => {
 	const [value, handleChange] = useForm({
@@ -7,18 +8,23 @@ const App = () => {
 		email: '',
 		text: '',
 	})
-	console.log(value)
+
+	const [number, handleClickNumber] = useFormNumber(false)
+
+	const onSubmit = e => {
+		e.preventDefault()
+	}
 
 	return (
 		<div className='w-100 d-flex justify-content-center align-items-center'>
-			<form className='w-25 mt-5'>
+			<form className='w-25 mt-5' onSubmit={onSubmit}>
 				<div className='mb-3'>
 					<label htmlFor='exampleFormControlInput1' className='form-label'>
 						FullName
 					</label>
 					<input
 						type='text'
-						className='form-control'
+						className='form-control text-primary'
 						id='exampleFormControlInput1'
 						placeholder='Shohruz Isroilov'
 						name='name'
@@ -67,7 +73,11 @@ const App = () => {
 						onChange={handleChange}
 					></textarea>
 				</div>
-				<button type='submit' className='btn btn-primary'>
+				<button
+					type='submit'
+					className={`${number ? 'btn btn-primary' : 'btn btn-secondary'}`}
+					onClick={handleClickNumber}
+				>
 					Submit
 				</button>
 			</form>
